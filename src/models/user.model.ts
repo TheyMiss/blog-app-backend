@@ -15,7 +15,7 @@ import log from '../logger';
 })
 export class User {
   @prop({ required: true, unique: true, lowercase: true })
-  email: number;
+  email: string;
 
   @prop({ required: true })
   password: string;

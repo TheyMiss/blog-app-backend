@@ -9,7 +9,8 @@
     "build": "tsc",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed": "ts-node-dev src/utils/user.seed.ts"
   },
   "keywords": [],
   "author": "",
