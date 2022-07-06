@@ -1,22 +1,23 @@
-import { config } from '../config/default';
+import config from 'config';
 import connectToDb from '../db/conn';
 import disconnectFromDb from '../db/disConn';
 import log from '../logger';
 import UserModel from '../models/user.model';
 import { createUserSchema } from '../schema/user.schema';
+import { findUserByEmail } from '../services/user.services';
 
 const CreateUserHandler = async () => {
   connectToDb();
   try {
     const body = {
-      email: config.email,
-      password: config.password,
-      passwordConfirmation: config.passwordConfirmation,
+      email: config.get('email'),
+      password: config.get('password'),
+      passwordConfirmation: config.get('passwordConfirmation'),
     };
 
     const data = createUserSchema.parse(body);
 
-    const doesUserExist = await UserModel.findOne({ email: data.email });
+    const doesUserExist = await findUserByEmail(data.email);
 
     if (!doesUserExist) {
       await UserModel.create(data);
