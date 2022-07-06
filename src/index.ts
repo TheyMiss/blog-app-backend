@@ -1,19 +1,25 @@
 import express from 'express';
-import http from 'http';
 import 'dotenv/config';
 import log from './logger';
 import { config } from './config/default';
 import connectToDb from './db/conn';
+import authRouter from './Routes/auth.routes';
+import axios from 'axios';
 
 const app = express();
 
-const server = http.createServer(app);
+// app.use(express.json());
 
-app.use(express.json());
+// app.use(authRouter);
 
-app.use(express.urlencoded({ extended: true }));
+app.get('/', async (req, res) => {
+  const albumId = req.query.albumId;
+  const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos', { params: { albumId } });
 
-server.listen(() => {
+  res.json(data);
+});
+
+app.listen(config.port, () => {
   log.info(`Server is listening at ${config.port}`);
   connectToDb();
 });

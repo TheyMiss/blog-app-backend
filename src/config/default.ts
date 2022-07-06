@@ -6,4 +6,6 @@ export const config = {
   email: process.env.EMAIL,
   password: process.env.PASSWORD,
   passwordConfirmation: process.env.PASSWORDCONFIRMATION,
+  accessTokenPrivateKey: '',
+  refreshTokenPrivateKey: '',
 };
